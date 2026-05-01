@@ -29,7 +29,7 @@ class Program
                 {
                     Console.WriteLine($"You guessed it! in {cdw_guessCount} guesses!");
                     cdw_flag = false;
-                    string cdw_userPlayAgain = getString("Do you want to play again? Yes or No.");
+                   string cdw_userPlayAgain = getString("Do you want to play again? Yes or No.");
                     if (cdw_userPlayAgain == "No")
                     {
                         cdw_playAgain = false;
