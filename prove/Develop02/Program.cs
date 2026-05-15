@@ -8,9 +8,11 @@ class Program
     {
         int cdw_menuAnswer = 0;
         Journal cdw_entryList = new Journal();
-        Console.WriteLine("Welcome to the Journal Program!");
+        
         while (cdw_menuAnswer != 5)
         {
+            Console.Clear();
+            Console.WriteLine("Welcome to the Journal Program!");
             cdw_menuAnswer = cdw_Menu();
             if (cdw_menuAnswer == 1)
             {
@@ -29,6 +31,7 @@ class Program
                 cdw_Save(cdw_entryList);
             }
         }
+        Console.Clear();
         Console.WriteLine("Thank you for using the Journal Program!");
 
     }
@@ -67,7 +70,9 @@ class Program
     //Write a new entry and save it to the entry class
     static Entry cdw_Write()
     {
+        Console.Clear();
         int cdw_writeAnswer = toInt("Please select one of the following: \n1. Create custom prompt \n2. Use random prompt");
+        Console.Clear();
         Entry cdw_newEntry = new Entry();
         Prompt cdw_promptList = new Prompt();
         if (cdw_writeAnswer == 1)
@@ -120,12 +125,16 @@ class Program
     //Display all entries in the journal
     static void cdw_Display(Journal cdw_journal)
     {
+        Console.Clear();
         Console.WriteLine(cdw_journal.cdw_compileJournal());
+        Console.WriteLine("Press Enter to Continue...");
+        Console.ReadLine();
     }
 
     //Load a previous journal from a file
     static Journal cdw_Load(Journal cdw_journal)
     {
+        Console.Clear();
         string cdw_fileName = toString("Please enter the filename under which your journal is saved: ");
         string[] lines = System.IO.File.ReadAllLines(cdw_fileName);
 
@@ -138,14 +147,19 @@ class Program
             cdw_newEntry._cdw_entry = cdw_item[2];
             cdw_journal._cdw_entries.Add(cdw_newEntry);
         }
+        Console.WriteLine("Press Enter to Continue...");
+        Console.ReadLine();
         return cdw_journal;
     }
 
     //Save current journal to a file
     static void cdw_Save(Journal cdw_journal)
     {
+       Console.Clear();
        string cdw_fileName = toString("Please enter the new filename:");
         cdw_journal.cdw_writeToFile(cdw_fileName);
         Console.WriteLine($"Your Journal has been saved to {cdw_fileName}");
+        Console.WriteLine("Press Enter to Continue...");
+        Console.ReadLine();
     }
 }
