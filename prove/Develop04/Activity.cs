@@ -1,3 +1,12 @@
+using System;
+/*
+    Name: Carter Weber
+    Class: CSE-210
+    Description: Parent class for the mindfulness activities.
+
+    Sources: 
+        1. https://byui-cse.github.io/cse210-course-2023
+*/
 public class Activity
 {
     private string _cdw_name;

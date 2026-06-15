@@ -1,5 +1,12 @@
 using System;
-
+/*
+    Name: Carter Weber
+    Class: CSE-210
+    Description: A program to assist in the mindfulness of a user through three different walkthrough activities.
+    Sources:
+        1. https://byui-cse.github.io/cse-course-2023
+        
+*/
 class Program
 {
     static void Main(string[] args)
