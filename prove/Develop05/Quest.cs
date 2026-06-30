@@ -87,16 +87,27 @@ public class Quest
     }
     public virtual int cdw_CompleteQuest()
     {
+        _cdw_completed = true;
         return _cdw_reward;
     }
     public virtual string cdw_ToString()
     {
         string cdw_rtnString = "";
+        if(_cdw_completed == true)
+        {
+            cdw_rtnString += "[X]";
+        }
+        else
+        {
+            cdw_rtnString += "[ ]";
+        }
+        cdw_rtnString += $" {cdw_GetName()} ({cdw_GetDescription()})";
         return cdw_rtnString;
     }
     public virtual string cdw_SaveGoals()
     {
-        return "test";
+        string cdw_rtnString = $"{cdw_GetName()} // {cdw_GetDescription()} // {cdw_GetReward()} // {cdw_GetCompleted()}";
+        return cdw_rtnString;
     }
     
 

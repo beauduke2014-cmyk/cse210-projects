@@ -71,8 +71,7 @@ public class Checklist:Quest //: inherite from Base class
         _cdw_completionCounter ++;
         if (_cdw_completionCounter == _cdw_goal)
         {
-            cdw_SetCompleted(true);
-            return cdw_GetReward() + _cdw_bonus;
+            return base.cdw_CompleteQuest() + _cdw_bonus;
         }
         else
         {
@@ -83,23 +82,14 @@ public class Checklist:Quest //: inherite from Base class
     public override string cdw_ToString()
     {
         string cdw_rtnString = "";
-        bool cdw_completed = cdw_GetCompleted();
-        if(cdw_completed == true)
-        {
-            cdw_rtnString += "[X]";
-        }
-        else
-        {
-            cdw_rtnString += "[ ]";
-        }
-        cdw_rtnString += $" {cdw_GetName()} ({cdw_GetDescription()})";
+        cdw_rtnString += base.cdw_ToString();
         cdw_rtnString += $" -- Currently completed {_cdw_completionCounter}/{_cdw_goal}";
         return cdw_rtnString;
     }
 
     public override string cdw_SaveGoals()
     {
-        string cdw_rtnString = $"Checklist // {cdw_GetName()} // {cdw_GetDescription()} // {cdw_GetReward()} // {cdw_GetCompleted()} // {_cdw_completionCounter} // {_cdw_goal} // {_cdw_bonus}";
+        string cdw_rtnString = $"Checklist // {base.cdw_SaveGoals()} // {_cdw_completionCounter} // {_cdw_goal} // {_cdw_bonus}";
         return cdw_rtnString;
     }
 }

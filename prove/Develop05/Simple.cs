@@ -59,31 +59,17 @@ public class Simple:Quest //: inherite from Base class
         //  getters if class is mutable
     public override int cdw_CompleteQuest()
     {
-        bool cdw_completed = cdw_GetCompleted();
-        cdw_completed = true;
-        cdw_SetCompleted(cdw_completed);
-        return cdw_GetReward();
+        return base.cdw_CompleteQuest();
     }
 
     public override string cdw_ToString()
     {
-        string cdw_rtnString = "";
-        bool cdw_completed = cdw_GetCompleted();
-        if(cdw_completed == true)
-        {
-            cdw_rtnString += "[X]";
-        }
-        else
-        {
-            cdw_rtnString += "[ ]";
-        }
-        cdw_rtnString += $" {cdw_GetName()} ({cdw_GetDescription()})";
-        return cdw_rtnString;
+        return base.cdw_ToString();
     }
     
     public override string cdw_SaveGoals()
     {
-        string cdw_rtnString = $"Simple // {cdw_GetName()} // {cdw_GetDescription()} // {cdw_GetReward()} // {cdw_GetCompleted()}";
+        string cdw_rtnString = $"Simple // {base.cdw_SaveGoals()}";
         return cdw_rtnString;
     }
 }
