@@ -109,6 +109,4 @@ public class Quest
         string cdw_rtnString = $"{cdw_GetName()} // {cdw_GetDescription()} // {cdw_GetReward()} // {cdw_GetCompleted()}";
         return cdw_rtnString;
     }
-    
-
 }
