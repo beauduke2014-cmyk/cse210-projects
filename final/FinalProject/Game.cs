@@ -78,9 +78,9 @@ class Game //: inherite from Base class
         // if immutable
         //  getters if class is mutable
 
-    public virtual void cdw_StartGame()
+    public virtual string cdw_StartGame()
     {
-        
+        return " ";
     }
 
     public int cdw_getReward()

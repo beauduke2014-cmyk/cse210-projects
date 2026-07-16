@@ -54,11 +54,11 @@ class RockPaperScissors:Game //: inherite from Base class
     //  public string toString(){...} //defines 
     // if immutable
     //  getters if class is mutable
-    public override void cdw_StartGame()
+    public override string cdw_StartGame()
     {
-        base.cdw_StartGame();
+        return $"Which do you choose: \n 1. {_cdw_optionOne}\n 2. {_cdw_optionTwo}\n 3. {_cdw_optionThree}\n";
     }
-    public void cdw_CheckAnswer()
+    public override void cdw_CheckWinner()
     {
         
     }

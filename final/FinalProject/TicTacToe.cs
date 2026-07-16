@@ -96,9 +96,10 @@ class TicTacToe:Game //: inherite from Base class
     //  public string toString(){...} //defines 
     // if immutable
     //  getters if class is mutable
-    public override void cdw_StartGame()
+    public override string cdw_StartGame()
     {
         base.cdw_StartGame();
+        return "test";
     }
 
     public string cdw_AssembleBoard()

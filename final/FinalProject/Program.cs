@@ -27,8 +27,18 @@ class Program
             cdw_menuChoice = toInt("What would you like to do? ");
             if (cdw_menuChoice == 1)
             {
-                Console.WriteLine("Play Rock Paper Scissors");
+                RockPaperScissors cdw_RPS = new RockPaperScissors();
+                int cdw_playerCount = cdw_GetPlayerCount();
+                int cdw_difficulty = 0;
+                int cdw_rewardPoints = 0;
+                if (cdw_playerCount == 1)
+                {
+                    cdw_difficulty = cdw_SelectDifficulty();
+                    cdw_rewardPoints = cdw_SelectReward(cdw_difficulty);
+                }
                 cdw_Pause();
+                cdw_RPS.cdw_Initialize("Rock Paper Scissors", "Each turn the players will pick between one of three options: rock, paper, and scissors. Rock beats scissors, scissors beats paper, and paper beats rock. Whoever chooses the item that beats the opponent wins the game. If both players choose the same item, it is a tie and they play again until a winner is chosen.", cdw_rewardPoints, cdw_playerCount);
+                 
             }
             else if (cdw_menuChoice == 2)
             {
@@ -107,14 +117,80 @@ class Program
         Console.ReadLine();
     }
 
+    static int cdw_GetPlayerCount()
+    {
+        bool cdw_flag = true;
+        int cdw_playerCount = 0;
+        while(cdw_flag == true)
+        {
+            cdw_playerCount = toInt("How many players will play this game? 1 or 2?  ");
+            if (cdw_playerCount > 2 || cdw_playerCount < 1)
+            {
+                Console.WriteLine("That is not a valid input, please input a 1 or 2.");
+            }
+            else
+            {
+                cdw_flag = false;
+            }
+        }
+        
+        return cdw_playerCount;
+    }
+
    static void cdw_SelectPlayer()
     {
         
     }
 
-    static void cdw_SelectDifficulty()
+    static int cdw_SelectDifficulty()
     {
+        bool cdw_flag = true;
+        int cdw_difficulty = 0;
+        while (cdw_flag == true)
+        {
+            cdw_difficulty = toInt("What do you want the difficulty of the NPC to be? \n 1. Easy \n 2. Medium \n 3. Hard");
+            if(cdw_difficulty > 3 || cdw_difficulty < 1)
+            {
+                Console.WriteLine("That is not a valid input, please enter a number between 1 and 3.");
+            }
+            else
+            {
+                cdw_flag = false;
+            }
+        }
+        return cdw_difficulty;
         
+    }
+
+    static int cdw_SelectReward(int cdw_difficulty = 0)
+    {
+        int cdw_reward = 0;
+        if (cdw_difficulty == 1)
+        {
+            cdw_reward = 100;
+        }
+        else if (cdw_difficulty == 2)
+        {
+            cdw_reward = 150;
+        }
+        else if (cdw_difficulty == 3)
+        {
+            cdw_reward = 200;
+        }
+        else
+        {
+            bool cdw_flag = true;
+            while (cdw_flag == true)
+            {
+                cdw_reward = toInt("What would you like the reward to be for winning this match? ");
+                if (cdw_reward < 0)
+                {
+                    Console.WriteLine("That is not a valid input, make sure the reward points is above 0");
+                }
+            }
+            
+        }
+        return cdw_reward;
     }
     //Project Output functions that call Support Functions
     
