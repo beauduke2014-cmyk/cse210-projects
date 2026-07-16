@@ -31,13 +31,23 @@ class Program
                 int cdw_playerCount = cdw_GetPlayerCount();
                 int cdw_difficulty = 0;
                 int cdw_rewardPoints = 0;
+                Player cdw_playerOne;
+                Player cdw_playerTwo;
                 if (cdw_playerCount == 1)
                 {
                     cdw_difficulty = cdw_SelectDifficulty();
                     cdw_rewardPoints = cdw_SelectReward(cdw_difficulty);
+                    cdw_playerOne = cdw_SelectPlayer(cdw_playerList);
+                }
+                else if (cdw_playerCount == 2)
+                {
+                    cdw_rewardPoints = cdw_SelectReward();
+                    cdw_playerOne = cdw_SelectPlayer(cdw_playerList);
+                    cdw_playerTwo = cdw_SelectPlayer(cdw_playerList);
                 }
                 cdw_Pause();
                 cdw_RPS.cdw_Initialize("Rock Paper Scissors", "Each turn the players will pick between one of three options: rock, paper, and scissors. Rock beats scissors, scissors beats paper, and paper beats rock. Whoever chooses the item that beats the opponent wins the game. If both players choose the same item, it is a tie and they play again until a winner is chosen.", cdw_rewardPoints, cdw_playerCount);
+
                  
             }
             else if (cdw_menuChoice == 2)
@@ -137,9 +147,35 @@ class Program
         return cdw_playerCount;
     }
 
-   static void cdw_SelectPlayer()
+   static Player cdw_SelectPlayer(List<Player> cdw_playerList)
     {
-        
+        bool cdw_flag = true;
+        Player cdw_playerOne;
+        int cdw_playerChoice = 0;
+        while (cdw_flag == true)
+        {
+            int cdw_playerCount = 0;
+            Console.WriteLine("Players: ");
+            foreach(Player cdw_player in cdw_playerList)
+            {
+                cdw_playerCount ++;
+                Console.WriteLine($" {cdw_playerCount}. {cdw_player.cdw_GetName}");
+            }
+            cdw_playerChoice = toInt("Which player would you like to play as? ");
+            cdw_playerChoice --;
+            if (cdw_playerChoice < 0 || cdw_playerChoice > cdw_playerList.Count)
+            {
+                Console.WriteLine("That is not a valid input, make sure you enter a number that is next to the player you want to play as.");
+            }
+            else
+            {
+                cdw_flag = false;
+                
+                
+            }
+            
+        }
+        return cdw_playerOne = cdw_playerList[cdw_playerChoice];
     }
 
     static int cdw_SelectDifficulty()
@@ -148,7 +184,7 @@ class Program
         int cdw_difficulty = 0;
         while (cdw_flag == true)
         {
-            cdw_difficulty = toInt("What do you want the difficulty of the NPC to be? \n 1. Easy \n 2. Medium \n 3. Hard");
+            cdw_difficulty = toInt("What do you want the difficulty of the NPC to be? \n 1. Easy \n 2. Medium \n 3. Hard\n");
             if(cdw_difficulty > 3 || cdw_difficulty < 1)
             {
                 Console.WriteLine("That is not a valid input, please enter a number between 1 and 3.");
@@ -186,6 +222,10 @@ class Program
                 if (cdw_reward < 0)
                 {
                     Console.WriteLine("That is not a valid input, make sure the reward points is above 0");
+                }
+                else
+                {
+                    cdw_flag = false;
                 }
             }
             
