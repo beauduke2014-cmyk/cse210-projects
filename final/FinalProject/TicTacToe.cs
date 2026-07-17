@@ -98,15 +98,153 @@ class TicTacToe:Game //: inherite from Base class
     //  getters if class is mutable
     public override string cdw_StartGame()
     {
-        base.cdw_StartGame();
-        return "test";
+        string cdw_rtnString = "";
+        cdw_rtnString += cdw_AssembleBoard();
+        cdw_rtnString += "\n\nSelect a square: ";
+        return cdw_rtnString;
+    }
+
+    public string cdw_SelectSquare(int cdw_choice, int cdw_player)
+    {
+        if(cdw_player == 1)
+        {
+            if(cdw_choice == 1 && _cdw_squareOne == "1")
+            {
+                _cdw_squareOne = "X";
+                return "Success";
+            }
+            else if(cdw_choice == 2 && _cdw_squareTwo == "2")
+            {
+                _cdw_squareTwo = "X";
+                return "Success";
+            }
+            else if(cdw_choice == 3 && _cdw_squareThree == "3")
+            {
+                _cdw_squareThree = "X";
+                return "Success";
+            }
+            else if(cdw_choice == 4 && _cdw_squareFour == "4")
+            {
+                _cdw_squareFour = "X";
+                return "Success";
+            }
+            else if(cdw_choice == 5 && _cdw_squareFive == "5")
+            {
+                _cdw_squareFive = "X";
+                return "Success";
+            }
+            else if(cdw_choice == 6 && _cdw_squareSix == "6")
+            {
+                _cdw_squareSix = "X";
+                return "Success";
+            }
+            else if(cdw_choice == 7 && _cdw_squareSeven == "7")
+            {
+                _cdw_squareSeven = "X";
+                return "Success";
+            }
+            else if(cdw_choice == 8 && _cdw_squareEight == "8")
+            {
+                _cdw_squareEight = "X";
+                return "Success";
+            }
+            else if(cdw_choice == 9 && _cdw_squareNine == "9")
+            {
+                _cdw_squareNine = "X";
+                return "Success";
+            }
+            else
+            {
+                return "Invalid";
+            }
+        }
+        else if(cdw_player == 2)
+        {
+            if(cdw_choice == 1 && _cdw_squareOne == "1")
+            {
+                _cdw_squareOne = "O";
+                return "Success";
+            }
+            else if(cdw_choice == 2 && _cdw_squareTwo == "2")
+            {
+                _cdw_squareTwo = "O";
+                return "Success";
+            }
+            else if(cdw_choice == 3 && _cdw_squareThree == "3")
+            {
+                _cdw_squareThree = "O";
+                return "Success";
+            }
+            else if(cdw_choice == 4 && _cdw_squareFour == "4")
+            {
+                _cdw_squareFour = "O";
+                return "Success";
+            }
+            else if(cdw_choice == 5 && _cdw_squareFive == "5")
+            {
+                _cdw_squareFive = "O";
+                return "Success";
+            }
+            else if(cdw_choice == 6 && _cdw_squareSix == "6")
+            {
+                _cdw_squareSix = "O";
+                return "Success";
+            }
+            else if(cdw_choice == 7 && _cdw_squareSeven == "7")
+            {
+                _cdw_squareSeven = "O";
+                return "Success";
+            }
+            else if(cdw_choice == 8 && _cdw_squareEight == "8")
+            {
+                _cdw_squareEight = "O";
+                return "Success";
+            }
+            else if(cdw_choice == 9 && _cdw_squareNine == "9")
+            {
+                _cdw_squareNine = "O";
+                return "Success";
+            }
+            else
+            {
+                return "Invalid";
+            }
+        }
+        else
+        {
+            return "Invalid";
+        }
     }
 
     public string cdw_AssembleBoard()
     {
         return $" {_cdw_squareOne} | {_cdw_squareTwo} | {_cdw_squareThree} \n-----------\n {_cdw_squareFour} | {_cdw_squareFive} | {_cdw_squareSix} \n-----------\n {_cdw_squareSeven} | {_cdw_squareEight} | {_cdw_squareNine} ";
     }
+    public List<string> cdw_GetBoard()
+    {
+        List<string> cdw_boardList = new();
+        cdw_boardList.Add(_cdw_squareOne);
+        cdw_boardList.Add(_cdw_squareTwo);
+        cdw_boardList.Add(_cdw_squareThree);
+        cdw_boardList.Add(_cdw_squareFour);
+        cdw_boardList.Add(_cdw_squareFive);
+        cdw_boardList.Add(_cdw_squareSix);
+        cdw_boardList.Add(_cdw_squareSeven);
+        cdw_boardList.Add(_cdw_squareEight);
+        cdw_boardList.Add(_cdw_squareNine);
+        return cdw_boardList;
+    }
 
-    
+    public bool cdw_CheckForWin()
+    {
+        if ((_cdw_squareOne == _cdw_squareTwo && _cdw_squareTwo == _cdw_squareThree) || (_cdw_squareOne == _cdw_squareFour && _cdw_squareFour == _cdw_squareSeven) || (_cdw_squareOne == _cdw_squareFive && _cdw_squareFive == _cdw_squareNine) || (_cdw_squareFour == _cdw_squareFive && _cdw_squareFive == _cdw_squareSix) || (_cdw_squareTwo == _cdw_squareFive && _cdw_squareFive == _cdw_squareEight) || (_cdw_squareThree == _cdw_squareFive && _cdw_squareFive == _cdw_squareSeven) || (_cdw_squareSeven == _cdw_squareEight && _cdw_squareEight == _cdw_squareNine) || (_cdw_squareThree == _cdw_squareSix && _cdw_squareSix == _cdw_squareNine))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }

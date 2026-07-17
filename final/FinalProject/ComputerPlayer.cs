@@ -156,4 +156,92 @@ class ComputerPlayer:Player //: inherite from Base class
         }
         return cdw_choiceList[cdw_random.Next(cdw_choiceList.Count)];
     }
+
+    public int cdw_TTTAction(List<string> cdw_board = null)
+    {
+        Random cdw_random = new Random();
+        if (_cdw_difficulty == 1)
+        {
+            if (cdw_board[4] == "5")
+            {
+                return 5;
+            }
+            else if(cdw_board[2] == "3")
+            {
+                return 3;
+            }
+            else if (cdw_board[6] == "7")
+            {
+                return 7;
+            }
+            else if (cdw_board[5] == "6")
+            {
+                return 6;
+            }
+            else if (cdw_board [3] == "4")
+            {
+                return 4;
+            }
+            else if (cdw_board [8] == "9")
+            {
+                return 9;
+            }
+            else if (cdw_board [0] == "1")
+            {
+                return 1;
+            }
+            else if (cdw_board [1] == "2")
+            {
+                return 2;
+            }
+            else
+            {
+                return 8;
+            }
+        }
+        else if (_cdw_difficulty == 3)
+        {
+            if (cdw_board[2] == "3")
+            {
+                return 3;
+            }
+            else if (cdw_board[6] == "7")
+            {
+                return 7;
+            }
+            else if (cdw_board[4] == "5")
+            {
+                return 5;
+            }
+            else if (cdw_board[5] == "6")
+            {
+                return 6;
+            }
+            else if (cdw_board[3] == "4")
+            {
+                return 4;
+            }
+            else if (cdw_board[8] == "9")
+            {
+                return 9;
+            }
+            else if (cdw_board[0] == "1")
+            {
+                return 1;
+            }
+            else if (cdw_board[7] == "8")
+            {
+                return 8;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+        else
+        {
+            return cdw_random.Next(1,10);
+        }
+    }
+
 }

@@ -295,8 +295,230 @@ class Program
             else if (cdw_menuChoice == 3)
             {
                 TicTacToe cdw_ticTacToe = new TicTacToe();
-                Console.WriteLine(cdw_ticTacToe.cdw_AssembleBoard());
-                cdw_Pause();
+                Player cdw_playerOne = null;
+                Player cdw_playerTwo = null;
+                int cdw_playerCount = cdw_GetPlayerCount();
+                int cdw_difficulty = 0;
+                int cdw_reward = 0;
+                if (cdw_playerCount == 1)
+                {
+                    if (cdw_playerList.Count > 0)
+                    {
+                        cdw_playerOne = cdw_SelectPlayer(cdw_playerList);
+                    }
+                    cdw_difficulty = cdw_SelectDifficulty();
+
+                    cdw_reward = cdw_SelectReward(cdw_difficulty);
+                    cdw_ticTacToe.cdw_Initialize("Tic Tac Toe", "The players take turns selecting squares to put an X or an O in. \nThe goal is to get three of your symbol in a row. \nIf you do, you win! \nTo select a square, enter the number inside the square.", cdw_reward, cdw_playerCount);
+                    Console.Clear();
+                    Console.WriteLine(cdw_ticTacToe.cdw_ToString());
+                    cdw_Pause();
+                    Console.Clear();
+                    bool cdw_gameFlag = true;
+                    int cdw_playerChoice = 0;
+                    while(cdw_gameFlag == true)
+                    {
+                        int cdw_availableturns = 9;
+                        bool cdw_choiceFlag = true;
+                        while(cdw_choiceFlag == true)
+                        {
+                            cdw_availableturns --;
+                            cdw_playerChoice = toInt(cdw_ticTacToe.cdw_StartGame());
+                            if (cdw_playerChoice < 1 || cdw_playerChoice > 9)
+                            {
+                                Console.WriteLine("That is an invalid answer, please try again!");
+                            }
+                            else
+                            {
+                                string cdw_squareCheck = cdw_ticTacToe.cdw_SelectSquare(cdw_playerChoice, 1);
+                                if (cdw_squareCheck == "Success")
+                                {
+                                    cdw_choiceFlag = false;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("That square is already taken. Please try again.");
+                                }
+                            }
+
+                        }
+                        if (cdw_ticTacToe.cdw_CheckForWin() == true)
+                        {
+                            Console.WriteLine($"{cdw_ticTacToe.cdw_AssembleBoard()}\n\nYou Win!");
+                            if(cdw_playerOne != null)
+                            {
+                                cdw_playerOne.cdw_addWin();
+                                cdw_playerOne.cdw_addPoints(cdw_ticTacToe.cdw_getReward());
+                            }
+                            cdw_gameFlag = false;
+                            cdw_Pause();
+                            Console.Clear();
+                        }
+                        else if (cdw_availableturns == 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(cdw_ticTacToe.cdw_AssembleBoard());
+                            Console.WriteLine("Its a tie!");
+                            cdw_gameFlag = false;
+                            cdw_Pause();
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            cdw_availableturns --;
+                            cdw_choiceFlag = true;
+                            int cdw_computerAction = 0;
+                            while (cdw_choiceFlag == true)
+                            {
+                                if (cdw_difficulty == 1)
+                                {
+                                    cdw_computerAction = cdw_easy.cdw_TTTAction(cdw_ticTacToe.cdw_GetBoard());
+                                }
+                                else if (cdw_difficulty == 2)
+                                {
+                                    cdw_computerAction = cdw_medium.cdw_TTTAction();
+                                }
+                                else if (cdw_difficulty == 3)
+                                {
+                                    cdw_computerAction = cdw_hard.cdw_TTTAction(cdw_ticTacToe.cdw_GetBoard());
+                                }
+                                string cdw_squareCheck = cdw_ticTacToe.cdw_SelectSquare(cdw_computerAction, 2);
+                                if (cdw_squareCheck == "Success")
+                                    {
+                                        cdw_choiceFlag = false;
+                                    }
+                            }
+                            if (cdw_ticTacToe.cdw_CheckForWin() == true)
+                            {
+                                Console.WriteLine($"{cdw_ticTacToe.cdw_AssembleBoard}\n\nYou Lose!");
+                                if(cdw_playerOne != null)
+                                {
+                                    cdw_playerOne.cdw_addLose();
+                                }
+                                cdw_gameFlag = false;
+                                cdw_Pause();
+                                Console.Clear();
+                            }
+                            }
+                    }
+                }
+                else if (cdw_playerCount == 2)
+                {
+                    if (cdw_playerList.Count > 0)
+                    {
+                        cdw_playerOne = cdw_SelectPlayer(cdw_playerList);
+                    }
+                    if (cdw_playerList.Count > 1)
+                    {
+                        cdw_playerTwo = cdw_SelectPlayer(cdw_playerList);
+                    }
+                    cdw_reward = cdw_SelectReward(cdw_difficulty);
+                    cdw_ticTacToe.cdw_Initialize("Tic Tac Toe", "The players take turns selecting squares to put an X or an O in. \nThe goal is to get three of your symbol in a row. \nIf you do, you win! \nTo select a square, enter the number inside the square.", cdw_reward, cdw_playerCount);
+                    Console.Clear();
+                    Console.WriteLine(cdw_ticTacToe.cdw_ToString());
+                    cdw_Pause();
+                    Console.Clear();
+                    bool cdw_gameFlag = true;
+                    int cdw_playerChoice = 0;
+                    int cdw_availableturns = 9;
+                    while(cdw_gameFlag == true)
+                    {
+                        bool cdw_choiceFlag = true;
+                        while(cdw_choiceFlag == true)
+                        {
+                            cdw_availableturns --;
+                            Console.Clear();
+                            cdw_playerChoice = toInt($"Player 1: \n{cdw_ticTacToe.cdw_StartGame()}");
+                            if (cdw_playerChoice < 1 || cdw_playerChoice > 9)
+                            {
+                                Console.WriteLine("That is an invalid answer, please try again!");
+                            }
+                            else
+                            {
+                                string cdw_squareCheck = cdw_ticTacToe.cdw_SelectSquare(cdw_playerChoice, 1);
+                                if (cdw_squareCheck == "Success")
+                                {
+                                    cdw_choiceFlag = false;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("That square is already taken. Please try again.");
+                                }
+                            }
+
+                        }
+                        if (cdw_ticTacToe.cdw_CheckForWin() == true)
+                        {
+                            Console.WriteLine($"{cdw_ticTacToe.cdw_AssembleBoard()}\n\nPlayer 1 Wins!");
+                            if(cdw_playerOne != null)
+                            {
+                                cdw_playerOne.cdw_addWin();
+                                cdw_playerOne.cdw_addPoints(cdw_ticTacToe.cdw_getReward());
+                            }
+                            if (cdw_playerTwo != null)
+                            {
+                                cdw_playerTwo.cdw_addLose();
+                            }
+                            cdw_gameFlag = false;
+                            cdw_Pause();
+                            Console.Clear();
+                        }
+                        else if (cdw_availableturns == 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(cdw_ticTacToe.cdw_AssembleBoard());
+                            Console.WriteLine("Its a tie!");
+                            cdw_gameFlag = false;
+                            cdw_Pause();
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            cdw_availableturns --;
+                            cdw_choiceFlag = true;
+                            while(cdw_choiceFlag == true)
+                            {
+                                Console.Clear();
+                                cdw_playerChoice = toInt($"Player 2: \n{cdw_ticTacToe.cdw_StartGame()}");
+                                if (cdw_playerChoice < 1 || cdw_playerChoice > 9)
+                                {
+                                    Console.WriteLine("That is an invalid answer, please try again!");
+                                }
+                                else
+                                {
+                                    string cdw_squareCheck = cdw_ticTacToe.cdw_SelectSquare(cdw_playerChoice, 2);
+                                    if (cdw_squareCheck == "Success")
+                                    {
+                                        cdw_choiceFlag = false;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("That square is already taken. Please try again.");
+                                    }
+                                }
+
+                            }
+                            if (cdw_ticTacToe.cdw_CheckForWin() == true)
+                            {
+                                Console.WriteLine($"{cdw_ticTacToe.cdw_AssembleBoard()}\n\nPlayer 2 Wins!");
+                                if(cdw_playerTwo != null)
+                                {
+                                    cdw_playerTwo.cdw_addWin();
+                                    cdw_playerTwo.cdw_addPoints(cdw_ticTacToe.cdw_getReward());
+                                }
+                                if (cdw_playerOne != null)
+                                {
+                                    cdw_playerOne.cdw_addLose();
+                                }
+                                cdw_gameFlag = false;
+                                cdw_Pause();
+                                Console.Clear();
+                            }
+                        }
+                        
+                        
+                    }
+                }
             }
             else if (cdw_menuChoice == 4)
             {
