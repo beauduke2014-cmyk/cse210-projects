@@ -62,33 +62,24 @@ class ComputerPlayer:Player //: inherite from Base class
 
         if(_cdw_difficulty == 1)
         {
-            cdw_choiceList.AddRange(new List<string>
-            {
-                "Rock",
-                "Paper",
-                "Scissors"
-            });
-        }
-        else if(_cdw_difficulty == 2)
-        {
-            if (cdw_playerChoice == "Rock")
+            if (cdw_playerChoice.ToUpper() == "SCISSORS")
             {
                 cdw_choiceList.AddRange(new List<string>
                 {
                     "Rock",
-                    "Rock",
+                    "Scissors",
                     "Paper",
                     "Paper",
                     "Paper",
                     "Scissors"
                 });
             }
-            else if (cdw_playerChoice == "Paper")
+            else if (cdw_playerChoice.ToUpper() == "ROCK")
             {
                 cdw_choiceList.AddRange(new List<string>
                 {
                     "Rock",
-                    "Paper",
+                    "Rock",
                     "Paper",
                     "Scissors",
                     "Scissors",
@@ -103,14 +94,24 @@ class ComputerPlayer:Player //: inherite from Base class
                     "Rock",
                     "Rock",
                     "Paper",
-                    "Scissors",
+                    "Paper",
                     "Scissors"
                 });
             }
+            
+        }
+        else if(_cdw_difficulty == 2)
+        {
+            cdw_choiceList.AddRange(new List<string>
+            {
+                "Rock",
+                "Paper",
+                "Scissors"
+            });
         }
         else
         {
-            if (cdw_playerChoice == "Rock")
+            if (cdw_playerChoice.ToUpper() == "ROCK")
             {
                 cdw_choiceList.AddRange(new List<string>
                 {
@@ -124,7 +125,7 @@ class ComputerPlayer:Player //: inherite from Base class
                     "Scissors"
                 });
             }
-            else if (cdw_playerChoice == "Paper")
+            else if (cdw_playerChoice.ToUpper() == "PAPER")
             {
                 cdw_choiceList.AddRange(new List<string>
                 {

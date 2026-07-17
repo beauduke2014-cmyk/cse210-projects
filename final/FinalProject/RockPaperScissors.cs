@@ -60,13 +60,16 @@ class RockPaperScissors:Game //: inherite from Base class
     }
     public string cdw_CheckWinner(string cdw_player1, string cdw_player2)
     {
-        if (cdw_player1 == cdw_player2)
+        if (cdw_player1.ToUpper() == cdw_player2.ToUpper())
+        {
             return "Tie";
-
-        if ((cdw_player1 == "rock" && cdw_player2 == "scissors") ||
-            (cdw_player1 == "paper" && cdw_player2 == "rock") ||
-            (cdw_player1 == "scissors" && cdw_player2 == "paper"))
+        }
+        else if ((cdw_player1.ToUpper() == "ROCK" && cdw_player2.ToUpper() == "SCISSORS") ||
+            (cdw_player1.ToUpper() == "PAPER" && cdw_player2.ToUpper() == "ROCK") ||
+            (cdw_player1.ToUpper() == "SCISSORS" && cdw_player2.ToUpper() == "PAPER"))
+        {
             return "Win";
+        }
         else
         {
             return "Loss";

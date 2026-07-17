@@ -15,8 +15,8 @@ class Trivia:Game //: inherite from Base class
     /// Attribute Permission Order: private, protected, public
     /// Declare a attribute: permission type variableName = value;
     /// a static attribute does not use the constructor so it must be declared and initiallized 
-    List<string> _cdw_questionList;
-    List<List<string>> _cdw_answerList;
+    List<string> _cdw_questionList = new();
+    List<List<string>> _cdw_answerList = new();
     int _cdw_currentQuestion;
 
 
@@ -180,7 +180,7 @@ class Trivia:Game //: inherite from Base class
             _cdw_questionList.AddRange(new[]
             {
                 "Which country has the most time zones (including its overseas territories)?",
-                "What ist he longer river in Europe?",
+                "What is the longest river in Europe?",
                 "Who painted The Persistence of Memory, the famouse painting featuring melting clocks?",
                 "What is the rarest natually occuring blood type in humans?",
                 "Which scientist is credited with proposing the three laws of planetary motion?",
@@ -276,14 +276,14 @@ class Trivia:Game //: inherite from Base class
         foreach (string cdw_answer in _cdw_answerList[cdw_questionNumber])
         {
             cdw_count ++;
-            cdw_rtnString += $"  {cdw_count}. {cdw_answer}";
+            cdw_rtnString += $"  {cdw_count}. {cdw_answer}\n";
         }
-        return "cdw_rtnString";
+        return cdw_rtnString;
     }
 
     public bool cdw_CheckAnswer(int cdw_answer)
     {
-        if(_cdw_currentQuestion == 1 || _cdw_currentQuestion == 2)
+        if(_cdw_currentQuestion == 0 || _cdw_currentQuestion == 1)
         {
             if (cdw_answer == 3)
             {
