@@ -55,8 +55,104 @@ class ComputerPlayer:Player //: inherite from Base class
         //  public string toString(){...} //defines 
         // if immutable
         //  getters if class is mutable
-    public string cdw_Action()
+    public string cdw_RPSAction(string cdw_playerChoice)
     {
-        return "placeholder";
+        Random cdw_random = new Random();
+        List<string> cdw_choiceList = new List<string>();
+
+        if(_cdw_difficulty == 1)
+        {
+            cdw_choiceList.AddRange(new List<string>
+            {
+                "Rock",
+                "Paper",
+                "Scissors"
+            });
+        }
+        else if(_cdw_difficulty == 2)
+        {
+            if (cdw_playerChoice == "Rock")
+            {
+                cdw_choiceList.AddRange(new List<string>
+                {
+                    "Rock",
+                    "Rock",
+                    "Paper",
+                    "Paper",
+                    "Paper",
+                    "Scissors"
+                });
+            }
+            else if (cdw_playerChoice == "Paper")
+            {
+                cdw_choiceList.AddRange(new List<string>
+                {
+                    "Rock",
+                    "Paper",
+                    "Paper",
+                    "Scissors",
+                    "Scissors",
+                    "Scissors"
+                });
+            }
+            else
+            {
+                cdw_choiceList.AddRange(new List<string>
+                {
+                    "Rock",
+                    "Rock",
+                    "Rock",
+                    "Paper",
+                    "Scissors",
+                    "Scissors"
+                });
+            }
+        }
+        else
+        {
+            if (cdw_playerChoice == "Rock")
+            {
+                cdw_choiceList.AddRange(new List<string>
+                {
+                    "Rock",
+                    "Rock",
+                    "Rock",
+                    "Paper",
+                    "Paper",
+                    "Paper",
+                    "Paper",
+                    "Scissors"
+                });
+            }
+            else if (cdw_playerChoice == "Paper")
+            {
+                cdw_choiceList.AddRange(new List<string>
+                {
+                    "Rock",
+                    "Paper",
+                    "Paper",
+                    "Paper",
+                    "Scissors",
+                    "Scissors",
+                    "Scissors",
+                    "Scissors"
+                });
+            }
+            else
+            {
+                cdw_choiceList.AddRange(new List<string>
+                {
+                    "Rock",
+                    "Rock",
+                    "Rock",
+                    "Rock",
+                    "Paper",
+                    "Scissors",
+                    "Scissors",
+                    "Scissors"
+                });
+            }
+        }
+        return cdw_choiceList[cdw_random.Next(cdw_choiceList.Count)];
     }
 }

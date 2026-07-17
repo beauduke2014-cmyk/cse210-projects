@@ -87,6 +87,15 @@ class Player //: inherite from Base class
     {
         return _cdw_name;
     }
+    public void cdw_addLose()
+    {
+        _cdw_loses ++;
+    }
+    public void cdw_addWin()
+    {
+        _cdw_wins ++;
+    }
+
 
     public virtual string cdw_ToString()
     {

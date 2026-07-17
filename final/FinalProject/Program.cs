@@ -17,6 +17,12 @@ class Program
         bool cdw_menuFlag = true;
         int cdw_menuChoice = 0;
         List<Player> cdw_playerList = new List<Player>();
+        ComputerPlayer cdw_easy = new ComputerPlayer();
+        ComputerPlayer cdw_medium = new ComputerPlayer();
+        ComputerPlayer cdw_hard = new ComputerPlayer();
+        cdw_easy.cdw_SetDifficulty(1);
+        cdw_medium.cdw_SetDifficulty(2);
+        cdw_hard.cdw_SetDifficulty(3);
 
         //Process
             // Pass input variables to class instances and call class process information
@@ -25,6 +31,7 @@ class Program
             Console.WriteLine("Thank you for playing 5-Minute Games!");
             Console.WriteLine("Menu: \n  1. Play Rock Paper Scissors \n  2. Play Trivia \n  3. Play Tic-Tac-Toe\n  4. Show Player Stats\n  5. Create New Player\n  6. Save Player Data\n  7. Load Player Data\n  8. Quit");
             cdw_menuChoice = toInt("What would you like to do? ");
+            Console.Clear();
             if (cdw_menuChoice == 1)
             {
                 RockPaperScissors cdw_RPS = new RockPaperScissors();
@@ -38,17 +45,92 @@ class Program
                     cdw_difficulty = cdw_SelectDifficulty();
                     cdw_rewardPoints = cdw_SelectReward(cdw_difficulty);
                     cdw_playerOne = cdw_SelectPlayer(cdw_playerList);
+                    Console.Clear();
+                    //Input data to the class and introduce game
+                    cdw_RPS.cdw_Initialize("Rock Paper Scissors", "Each turn the players will pick between one of three options: rock, paper, and scissors. Rock beats scissors, scissors beats paper, and paper beats rock. Whoever chooses the item that beats the opponent wins the game. If both players choose the same item, it is a tie and they play again until a winner is chosen.", cdw_rewardPoints, cdw_playerCount);
+                    cdw_RPS.cdw_ToString();
+                    Console.Clear();
+                    //start of playing the game
+                    bool cdw_gameFlag = true;
+                    while (cdw_gameFlag == true)
+                    {
+                        string cdw_Game = cdw_RPS.cdw_StartGame();
+                        bool cdw_flag = true;
+                        string cdw_RPSChoice = "";
+                        while(cdw_flag == true)
+                        {
+                            cdw_RPSChoice = answerToString(cdw_Game);
+                            if (cdw_RPSChoice == "Rock" || cdw_RPSChoice == "Paper" || cdw_RPSChoice == "Scissors")
+                            {
+                                cdw_flag = false;
+                            }
+                            else
+                            {
+                                Console.WriteLine("That is an invalid input. Make sure you enter the option you want to choose.");
+                            }
+                        }
+                        string cdw_computerAction = "";
+                        if (cdw_difficulty == 1)
+                        {
+                            cdw_computerAction = cdw_easy.cdw_RPSAction(cdw_RPSChoice);
+                        }
+                        else if (cdw_difficulty == 2)
+                        {
+                            cdw_computerAction = cdw_medium.cdw_RPSAction(cdw_RPSChoice);
+                        }
+                        else if (cdw_difficulty == 3)
+                        {
+                            cdw_computerAction = cdw_hard.cdw_RPSAction(cdw_RPSChoice);
+                        }
+                        string cdw_results = cdw_RPS.cdw_CheckWinner(cdw_RPSChoice, cdw_computerAction);
+                        Console.WriteLine($"The results are a {cdw_results}");
+                        if (cdw_results == "Tie")
+                        {
+                            Console.WriteLine("Now to try again! ");
+                        }
+                        else
+                        {
+                            cdw_gameFlag = false;
+                            if (cdw_results == "Lose")
+                            {
+                                cdw_playerOne.cdw_addLose();
+                            }
+                            else if(cdw_results == "Win")
+                            {
+                                cdw_playerOne.cdw_addWin();
+                            }
+                        }
+                    }
                 }
                 else if (cdw_playerCount == 2)
                 {
                     cdw_rewardPoints = cdw_SelectReward();
                     cdw_playerOne = cdw_SelectPlayer(cdw_playerList);
                     cdw_playerTwo = cdw_SelectPlayer(cdw_playerList);
+                        cdw_Pause();
+                    Console.Clear();
+                    cdw_RPS.cdw_Initialize("Rock Paper Scissors", "Each turn the players will pick between one of three options: rock, paper, and scissors. Rock beats scissors, scissors beats paper, and paper beats rock. Whoever chooses the item that beats the opponent wins the game. If both players choose the same item, it is a tie and they play again until a winner is chosen.", cdw_rewardPoints, cdw_playerCount);
+                    cdw_RPS.cdw_ToString();
+                    cdw_Pause();
+                    Console.Clear();
+                    string cdw_Game = cdw_RPS.cdw_StartGame();
+                    bool cdw_flag = true;
+                    int cdw_RPSChoice = 0;
+                    while(cdw_flag == true)
+                    {
+                        cdw_RPSChoice = toInt(cdw_Game);
+                        if (cdw_RPSChoice > 3 || cdw_RPSChoice < 1)
+                        {
+                            Console.WriteLine("That is an invalid input. Make sure you enter the number next to the option you want to choose.");
+                        }
+                        else
+                        {
+                            cdw_flag = false;
+                        }
+                    }
                 }
-                cdw_Pause();
-                cdw_RPS.cdw_Initialize("Rock Paper Scissors", "Each turn the players will pick between one of three options: rock, paper, and scissors. Rock beats scissors, scissors beats paper, and paper beats rock. Whoever chooses the item that beats the opponent wins the game. If both players choose the same item, it is a tie and they play again until a winner is chosen.", cdw_rewardPoints, cdw_playerCount);
+                
 
-                 
             }
             else if (cdw_menuChoice == 2)
             {
@@ -68,7 +150,11 @@ class Program
             }
             else if (cdw_menuChoice == 5)
             {
-                Console.WriteLine("Create a New Player");
+                HumanPlayer cdw_newPlayer = new HumanPlayer();
+                string cdw_name = answerToString("What is the name of the player? ");
+                cdw_newPlayer.cdw_Initialize(cdw_name);
+                Console.WriteLine("New Player created!");
+                cdw_playerList.Add(cdw_newPlayer);
                 cdw_Pause();
             }
             else if (cdw_menuChoice == 6)
@@ -101,25 +187,48 @@ class Program
     //Project Input functions that call Support Functions
 
     //Project Process functions that call Class
- static int toInt(string Prompt)
-{
-    int returnValue = 0;
-    bool wac_flag = true;
-    while (wac_flag)
+    static int toInt(string Prompt)
     {
-        try
+        int returnValue = 0;
+        bool wac_flag = true;
+        while (wac_flag)
         {
-            Console.Write(Prompt);
-            string wacUserInputStr = Console.ReadLine();
-            returnValue = int.Parse(wacUserInputStr);
-            wac_flag = false;
-        } catch (Exception e)
-        {
-            Console.WriteLine($"Value is not acceptable, please enter a valid number. {e}");
+            try
+            {
+                Console.Write(Prompt);
+                string wacUserInputStr = Console.ReadLine();
+                returnValue = int.Parse(wacUserInputStr);
+                wac_flag = false;
+            } catch (Exception e)
+            {
+                Console.WriteLine($"Value is not acceptable, please enter a valid number. {e}");
+            }
         }
+        return returnValue;
     }
-    return returnValue;
-}
+
+    static string answerToString(string Prompt)
+    {
+        string returnValue ="";
+        bool wac_flag = true;
+        while(wac_flag)
+        {
+            try
+            {
+                Console.WriteLine(Prompt);
+                returnValue = Console.ReadLine();
+                if (string.IsNullOrEmpty(returnValue)==true)
+                {
+                    throw new Exception();
+                }
+                wac_flag = false;
+            } catch(Exception)
+            {
+                Console.WriteLine("Value is not acceptable, please enter a valid name.");
+            }
+        }
+        return returnValue;
+    }
 
     static void cdw_Pause()
     {
@@ -159,7 +268,7 @@ class Program
             foreach(Player cdw_player in cdw_playerList)
             {
                 cdw_playerCount ++;
-                Console.WriteLine($" {cdw_playerCount}. {cdw_player.cdw_GetName}");
+                Console.WriteLine($" {cdw_playerCount}. {cdw_player.cdw_GetName()}");
             }
             cdw_playerChoice = toInt("Which player would you like to play as? ");
             cdw_playerChoice --;
@@ -170,8 +279,6 @@ class Program
             else
             {
                 cdw_flag = false;
-                
-                
             }
             
         }

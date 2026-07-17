@@ -56,12 +56,21 @@ class RockPaperScissors:Game //: inherite from Base class
     //  getters if class is mutable
     public override string cdw_StartGame()
     {
-        return $"Which do you choose: \n 1. {_cdw_optionOne}\n 2. {_cdw_optionTwo}\n 3. {_cdw_optionThree}\n";
+        return $"Which do you choose (Enter the name of the item): \n 1. {_cdw_optionOne}\n 2. {_cdw_optionTwo}\n 3. {_cdw_optionThree}\n";
     }
-    public override void cdw_CheckWinner()
+    public string cdw_CheckWinner(string cdw_player1, string cdw_player2)
     {
-        
+        if (cdw_player1 == cdw_player2)
+            return "Tie";
+
+        if ((cdw_player1 == "rock" && cdw_player2 == "scissors") ||
+            (cdw_player1 == "paper" && cdw_player2 == "rock") ||
+            (cdw_player1 == "scissors" && cdw_player2 == "paper"))
+            return "Win";
+
+        return "Lose";
     }
+    
     
 
 }

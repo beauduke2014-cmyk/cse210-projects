@@ -78,6 +78,12 @@ class Game //: inherite from Base class
         // if immutable
         //  getters if class is mutable
 
+    public string cdw_ToString()
+    {
+        string cdw_rtnString = $"You have chosen to play {_cdw_title}.\n Rules: {_cdw_rules}. \nThis will be a {_cdw_players} player game that will reward the winner with {_cdw_rewardPoints} points. \nGood luck and have fun!";
+        return cdw_rtnString;
+    }
+
     public virtual string cdw_StartGame()
     {
         return " ";
@@ -88,8 +94,8 @@ class Game //: inherite from Base class
         return _cdw_rewardPoints;
     }
 
-    public virtual void cdw_CheckWinner()
+    public virtual string cdw_CheckWinner()
     {
-        
+        return "";
     }
 }
