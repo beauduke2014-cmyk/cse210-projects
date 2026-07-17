@@ -67,8 +67,12 @@ class RockPaperScissors:Game //: inherite from Base class
             (cdw_player1 == "paper" && cdw_player2 == "rock") ||
             (cdw_player1 == "scissors" && cdw_player2 == "paper"))
             return "Win";
+        else
+        {
+            return "Loss";
+        }
 
-        return "Lose";
+        
     }
     
     

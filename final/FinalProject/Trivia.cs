@@ -16,7 +16,8 @@ class Trivia:Game //: inherite from Base class
     /// Declare a attribute: permission type variableName = value;
     /// a static attribute does not use the constructor so it must be declared and initiallized 
     List<string> _cdw_questionList;
-    List<string> _cdw_answerList;
+    List<List<string>> _cdw_answerList;
+    int _cdw_currentQuestion;
 
 
     //////////// Static/Class Methods ///////////////////
@@ -42,9 +43,203 @@ class Trivia:Game //: inherite from Base class
 
 
     // If mutable, use Setters to initialize class
-    public void cdw_setQuestions()
+    public void cdw_setQuestions(int cdw_difficulty)
     {
-        
+        if (cdw_difficulty == 1)
+        {
+            _cdw_questionList.AddRange(new[]
+            {
+                "What is the capital of the United States?",
+                "How many days are there in a week?",
+                "Which planet is known as the Red Planet?",
+                "What is the largest ocean on earth?",
+                "Which animal is known as the 'King of the Jungle'?",
+                "What color do you get when you mix blue and yellow?"
+            }
+            );
+            List<string> answers1 = new()
+            {
+                "New York City",
+                "Los Angeles",
+                "Washington D.C.",
+                "Chicago"
+            };
+            List<string> answers2 = new()
+            {
+                "5",
+                "6",
+                "7",
+                "8"
+            };
+            List<string> answers3 = new()
+            {
+                "Venus",
+                "Mars",
+                "Jupiter",
+                "Saturn"
+            };
+            List<string> answers4 = new()
+            {
+                "Atlantic Ocean",
+                "Pacific Ocean",
+                "Indian Ocean",
+                "Arctic Ocean"
+            };
+            List<string> answers5 = new()
+            {
+                "Tiger",
+                "Lion",
+                "Elephant",
+                "Gorilla"
+            };
+            List<string> answers6 = new()
+            {
+                "Purple",
+                "Green",
+                "Orange",
+                "Brown"
+            };
+            _cdw_answerList.AddRange(new[]
+            {
+                answers1,
+                answers2,
+                answers3,
+                answers4,
+                answers5,
+                answers6
+            }
+            );
+        }
+        else if (cdw_difficulty == 2)
+        {
+            _cdw_questionList.AddRange(new[]
+            {
+                "Which country is home to the Great Barrier Reef?",
+                "Who wrote the play Romeo and Juliet?",
+                "What is the largest desert in the world?",
+                "Which element has the chemical symbol 'Fe'?",
+                "Which U.S. state is known as the 'Sunshine State'?",
+                "In which year did the first human land on the moon?"
+            }
+            );
+            List<string> answers1 = new()
+            {
+                "New Zealand",
+                "South Africa",
+                "Australia",
+                "Indonesia"
+            };
+            List<string> answers2 = new()
+            {
+                "Charles Dickens",
+                "Mark Twain",
+                "William Shakespeare",
+                "Jane Austen"
+            };
+            List<string> answers3 = new()
+            {
+                "Sahara Desert",
+                "Antarctic Desert",
+                "Arabian Desert",
+                "Gobi Desert"
+            };
+            List<string> answers4 = new()
+            {
+                "Fluorine",
+                "Iron",
+                "Francium",
+                "Fermium"
+            };
+            List<string> answers5 = new()
+            {
+                "California",
+                "Florida",
+                "Arizona",
+                "Hawaii"
+            };
+            List<string> answers6 = new()
+            {
+                "1965",
+                "1969",
+                "1967",
+                "1971"
+            };
+            _cdw_answerList.AddRange(new[]
+            {
+                answers1,
+                answers2,
+                answers3,
+                answers4,
+                answers5,
+                answers6
+            }
+            );
+        }
+        else if (cdw_difficulty == 3)
+        {
+            _cdw_questionList.AddRange(new[]
+            {
+                "Which country has the most time zones (including its overseas territories)?",
+                "What ist he longer river in Europe?",
+                "Who painted The Persistence of Memory, the famouse painting featuring melting clocks?",
+                "What is the rarest natually occuring blood type in humans?",
+                "Which scientist is credited with proposing the three laws of planetary motion?",
+                "Which country was the first to grant women the right to vote in national elections?"
+            }
+            );
+            List<string> answers1 = new()
+            {
+                "Russia",
+                "United States",
+                "France",
+                "Canada"
+            };
+            List<string> answers2 = new()
+            {
+                "Danube",
+                "Rhine",
+                "Volga",
+                "Dnieper"
+            };
+            List<string> answers3 = new()
+            {
+                "Pablo Picasso",
+                "Salvador Dali",
+                "Vincent van Gogh",
+                "Claude Monet"
+            };
+            List<string> answers4 = new()
+            {
+                "O-",
+                "AB-",
+                "AB+",
+                "B-"
+            };
+            List<string> answers5 = new()
+            {
+                "Isaac Newton",
+                "Johannes Kepler",
+                "Galileo Galilei",
+                "Nicolaus Copernicus"
+            };
+            List<string> answers6 = new()
+            {
+                "Australia",
+                "New Zealand",
+                "Finland",
+                "Norway"
+            };
+            _cdw_answerList.AddRange(new[]
+            {
+                answers1,
+                answers2,
+                answers3,
+                answers4,
+                answers5,
+                answers6
+            }
+            );
+        }
     }
 
     ///////////  Process State Functions /////////////////
@@ -59,22 +254,56 @@ class Trivia:Game //: inherite from Base class
     //  getters if class is mutable
     public override string cdw_StartGame()
     {
-        base.cdw_StartGame();
-        return "test";
+        int cdw_questionNumber = cdw_GetRandomQuestion();
+        _cdw_currentQuestion = cdw_questionNumber;
+        string cdw_rtnString = $"Question: {_cdw_questionList[cdw_questionNumber]}";
+        string cdw_questionAnswers = cdw_GetOptions(cdw_questionNumber);
+        cdw_rtnString += $"\n\n{cdw_questionAnswers}";
+        return cdw_rtnString;
     }
 
-    public string cdw_GetRandomQuestion()
+    public int cdw_GetRandomQuestion()
     {
-        return "placeholder";
+        Random cdw_random = new Random();
+        int cdw_randomQuestion = cdw_random.Next(_cdw_questionList.Count);
+        return cdw_randomQuestion;
     }
 
-    public string cdw_RandomizeOptions()
+    public string cdw_GetOptions(int cdw_questionNumber)
     {
-        return "placeholder";
+        int cdw_count = 0;
+        string cdw_rtnString = "";
+        foreach (string cdw_answer in _cdw_answerList[cdw_questionNumber])
+        {
+            cdw_count ++;
+            cdw_rtnString += $"  {cdw_count}. {cdw_answer}";
+        }
+        return "cdw_rtnString";
     }
 
-    public void cdw_CheckAnswer()
+    public bool cdw_CheckAnswer(int cdw_answer)
     {
-        
+        if(_cdw_currentQuestion == 1 || _cdw_currentQuestion == 2)
+        {
+            if (cdw_answer == 3)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (cdw_answer == 2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

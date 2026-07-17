@@ -95,6 +95,10 @@ class Player //: inherite from Base class
     {
         _cdw_wins ++;
     }
+    public void cdw_addPoints(int cdw_reward)
+    {
+        _cdw_score += cdw_reward;
+    }
 
 
     public virtual string cdw_ToString()

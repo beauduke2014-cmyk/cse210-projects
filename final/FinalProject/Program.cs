@@ -48,7 +48,8 @@ class Program
                     Console.Clear();
                     //Input data to the class and introduce game
                     cdw_RPS.cdw_Initialize("Rock Paper Scissors", "Each turn the players will pick between one of three options: rock, paper, and scissors. Rock beats scissors, scissors beats paper, and paper beats rock. Whoever chooses the item that beats the opponent wins the game. If both players choose the same item, it is a tie and they play again until a winner is chosen.", cdw_rewardPoints, cdw_playerCount);
-                    cdw_RPS.cdw_ToString();
+                    Console.WriteLine(cdw_RPS.cdw_ToString());
+                    cdw_Pause();
                     Console.Clear();
                     //start of playing the game
                     bool cdw_gameFlag = true;
@@ -83,23 +84,26 @@ class Program
                             cdw_computerAction = cdw_hard.cdw_RPSAction(cdw_RPSChoice);
                         }
                         string cdw_results = cdw_RPS.cdw_CheckWinner(cdw_RPSChoice, cdw_computerAction);
-                        Console.WriteLine($"The results are a {cdw_results}");
                         if (cdw_results == "Tie")
                         {
-                            Console.WriteLine("Now to try again! ");
+                            Console.WriteLine("Its a tie! Now to try again! ");
                         }
                         else
                         {
                             cdw_gameFlag = false;
-                            if (cdw_results == "Lose")
+                            if (cdw_results == "Loss")
                             {
                                 cdw_playerOne.cdw_addLose();
+                                Console.WriteLine("The comuter has won!");
                             }
                             else if(cdw_results == "Win")
                             {
                                 cdw_playerOne.cdw_addWin();
+                                Console.WriteLine($"{cdw_playerOne.cdw_GetName()} has won!");
+                                cdw_playerOne.cdw_addPoints(cdw_RPS.cdw_getReward());
                             }
                         }
+                        cdw_Pause();
                     }
                 }
                 else if (cdw_playerCount == 2)
@@ -107,26 +111,71 @@ class Program
                     cdw_rewardPoints = cdw_SelectReward();
                     cdw_playerOne = cdw_SelectPlayer(cdw_playerList);
                     cdw_playerTwo = cdw_SelectPlayer(cdw_playerList);
-                        cdw_Pause();
-                    Console.Clear();
-                    cdw_RPS.cdw_Initialize("Rock Paper Scissors", "Each turn the players will pick between one of three options: rock, paper, and scissors. Rock beats scissors, scissors beats paper, and paper beats rock. Whoever chooses the item that beats the opponent wins the game. If both players choose the same item, it is a tie and they play again until a winner is chosen.", cdw_rewardPoints, cdw_playerCount);
-                    cdw_RPS.cdw_ToString();
                     cdw_Pause();
                     Console.Clear();
-                    string cdw_Game = cdw_RPS.cdw_StartGame();
-                    bool cdw_flag = true;
-                    int cdw_RPSChoice = 0;
-                    while(cdw_flag == true)
+                    cdw_RPS.cdw_Initialize("Rock Paper Scissors", "Each turn the players will pick between one of three options: rock, paper, and scissors. Rock beats scissors, scissors beats paper, and paper beats rock. Whoever chooses the item that beats the opponent wins the game. If both players choose the same item, it is a tie and they play again until a winner is chosen", cdw_rewardPoints, cdw_playerCount);
+                    Console.WriteLine(cdw_RPS.cdw_ToString());
+                    cdw_Pause();
+                    Console.Clear();
+                    bool cdw_gameFlag = true;
+                    while (cdw_gameFlag == true)
                     {
-                        cdw_RPSChoice = toInt(cdw_Game);
-                        if (cdw_RPSChoice > 3 || cdw_RPSChoice < 1)
+                        string cdw_Game = cdw_RPS.cdw_StartGame();
+                        bool cdw_flag = true;
+                        string cdw_RPSChoice1 = "";
+                        while(cdw_flag == true)
                         {
-                            Console.WriteLine("That is an invalid input. Make sure you enter the number next to the option you want to choose.");
+                            Console.WriteLine($"{cdw_playerOne.cdw_GetName()}, your turn!");
+                            cdw_RPSChoice1 = answerToString(cdw_Game);
+                            if (cdw_RPSChoice1.ToUpper() != "ROCK" && cdw_RPSChoice1.ToUpper() != "PAPER" && cdw_RPSChoice1.ToUpper() != "SCISSORS")
+                            {
+                                Console.WriteLine("That is an invalid input. Make sure you enter the number next to the option you want to choose.");
+                            }
+                            else
+                            {
+                                cdw_flag = false;
+                            }
+                        }
+                        Console.Clear();
+                        bool cdw_flag2 = true;
+                        string cdw_RPSChoice2 = "";
+                        while(cdw_flag2 == true)
+                        {
+                            Console.WriteLine($"{cdw_playerTwo.cdw_GetName()}, your turn!");
+                            cdw_RPSChoice2 = answerToString(cdw_Game);
+                            if (cdw_RPSChoice2.ToUpper() != "ROCK" && cdw_RPSChoice2.ToUpper() != "PAPER" && cdw_RPSChoice2.ToUpper() != "SCISSORS")
+                            {
+                                Console.WriteLine("That is an invalid input. Make sure you enter the number next to the option you want to choose.");
+                            }
+                            else
+                            {
+                                cdw_flag2 = false;
+                            }
+                        }
+                        string cdw_results = cdw_RPS.cdw_CheckWinner(cdw_RPSChoice1, cdw_RPSChoice2);
+                        if (cdw_results == "Tie")
+                        {
+                            Console.WriteLine("Its a tie! Now to try again! ");
                         }
                         else
                         {
-                            cdw_flag = false;
+                            cdw_gameFlag = false;
+                            if (cdw_results == "Loss")
+                            {
+                                cdw_playerOne.cdw_addLose();
+                                cdw_playerTwo.cdw_addWin();
+                                cdw_playerTwo.cdw_addPoints(cdw_RPS.cdw_getReward());
+                                Console.WriteLine($"{cdw_playerTwo.cdw_GetName()} has won!");
+                            }
+                            else if(cdw_results == "Win")
+                            {
+                                cdw_playerOne.cdw_addWin();
+                                cdw_playerOne.cdw_addPoints(cdw_RPS.cdw_getReward());
+                                cdw_playerTwo.cdw_addLose();
+                                Console.WriteLine($"{cdw_playerOne.cdw_GetName()} has won!");
+                            }
                         }
+                        cdw_Pause();
                     }
                 }
                 
@@ -134,8 +183,59 @@ class Program
             }
             else if (cdw_menuChoice == 2)
             {
-                Console.WriteLine("Play Trivia");
+                Trivia cdw_trivia = new Trivia();
+                Player cdw_newPlayer = cdw_SelectPlayer(cdw_playerList);
+                int cdw_difficulty = 0;
+                int cdw_rewardPoints = 0;
+                cdw_difficulty = cdw_SelectDifficulty();
+                cdw_rewardPoints = cdw_SelectReward(cdw_difficulty);
+                cdw_trivia.cdw_Initialize("Trivia", "This is a one player/team game.\nIn this game, you will be shown three questions. You must answer each question correctly or you will get no points.\nEach question will be shown with 4 answer options. Enter the number next to the answer you want to choose it.", cdw_rewardPoints, 1);
+                Console.Clear();
+                Console.WriteLine(cdw_trivia.ToString());
                 cdw_Pause();
+                Console.Clear();
+                bool cdw_questionflag = true;
+                int cdw_questionCounter = 0;
+                bool cdw_answerResults = false;
+                while(cdw_questionflag == true)
+                {
+                    cdw_questionCounter ++;
+                    Console.WriteLine($"{cdw_questionCounter}. {cdw_trivia.cdw_StartGame()}");
+                    bool cdw_answerflag = true;
+                    while(cdw_answerflag == true)
+                    {
+                        int cdw_answer = toInt("Which answer do you choose? ");
+                        if(cdw_answer < 1 || cdw_answer > 4)
+                        {
+                            Console.WriteLine("Invalid input, please try again");
+                        }
+                        else
+                        {
+                            cdw_answerResults = cdw_trivia.cdw_CheckAnswer(cdw_answer);
+                            cdw_answerflag = false;
+                        }
+                    }
+                    if (cdw_answerResults == false)
+                    {
+                        Console.WriteLine("You got the question wrong. Good try though!");
+                        cdw_Pause();
+                        Console.Clear();
+                        cdw_questionflag = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You got it correct!");
+                        cdw_Pause();
+                        Console.Clear();
+                        if(cdw_questionCounter >= 3)
+                        {
+                            Console.WriteLine("You answered all three questions correctly!");
+                            cdw_newPlayer.cdw_addWin();
+                            cdw_newPlayer.cdw_addPoints(cdw_trivia.cdw_getReward());
+                        }
+                    }
+                }
+
             }
             else if (cdw_menuChoice == 3)
             {
