@@ -103,11 +103,14 @@ class Player //: inherite from Base class
 
     public virtual string cdw_ToString()
     {
-        return "placeholder";
+        string cdw_rtnString = $"Player Name: {_cdw_name}\nWins: {_cdw_wins}\nLosses: {_cdw_loses}\nScore: {_cdw_score}\n";
+
+        return cdw_rtnString;
     }
 
     public virtual string cdw_SavePlayer()
     {
-        return "placeholder";
+        string cdw_rtnString = $"{_cdw_name} // {_cdw_score} // {_cdw_wins} // {_cdw_loses}";
+        return cdw_rtnString;
     }
 }

@@ -13,7 +13,8 @@ class Program
     static void Main(string[] args)
     {
         //Input
-            // Get information from console and save it in a varialbe
+            // Get information from console and save it in a variable
+        FileManager cdw_fileManager = new FileManager();
         bool cdw_menuFlag = true;
         int cdw_menuChoice = 0;
         List<Player> cdw_playerList = new List<Player>();
@@ -522,7 +523,10 @@ class Program
             }
             else if (cdw_menuChoice == 4)
             {
-                Console.WriteLine("Show Player Stats");
+                foreach(Player cdw_player in cdw_playerList)
+                {
+                    Console.WriteLine(cdw_player.cdw_ToString());
+                }
                 cdw_Pause();
             }
             else if (cdw_menuChoice == 5)
@@ -536,12 +540,17 @@ class Program
             }
             else if (cdw_menuChoice == 6)
             {
-                Console.WriteLine("Save Player Data");
+                string cdw_fileName = answerToString("What would you like the file to be called that your data is saved in? (without the .txt) ");
+                cdw_fileManager.cdw_SaveData(cdw_playerList, cdw_fileName);
+                Console.WriteLine("Successfully Saved");
                 cdw_Pause();
+                Console.Clear();
             }
             else if (cdw_menuChoice == 7)
             {
-                Console.WriteLine("Load Player Data");
+                string cdw_fileName = answerToString("What is the name of the file  that you would like to load from? (Without the .txt) ");
+                cdw_playerList = cdw_fileManager.cdw_LoadData(cdw_playerList, cdw_fileName);
+                Console.WriteLine("Player Data Successfully Loaded");
                 cdw_Pause();
             }
             else if (cdw_menuChoice == 8)
